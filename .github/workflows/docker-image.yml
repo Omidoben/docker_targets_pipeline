@@ -23,7 +23,7 @@ jobs:
     # Step 3: Run the Docker container with volume mapping
     - name: Run the Docker container
       run: docker run --rm --name targets_pipeline_container \
-        -v ${{ github.workspace }}/docker_targets_pipeline:/home/scripts:rw \
+        -v /github/workspace/fig/:/home/scripts:rw \
         targets_pipeline
 
     # Step 4: Upload artifacts (optional, if your pipeline generates output)
@@ -31,5 +31,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: pipeline-scripts
-        path: ${{ github.workspace }}/docker_targets_pipeline/
+        path: /github/workspace/fig/
 
