@@ -22,7 +22,7 @@ jobs:
 
     # Step 3: Run the Docker container with volume mapping
     - name: Run the Docker container
-      run: docker run --rm --name targets_pipeline_container -v /github/workspace/fig/:/home/scripts:rw targets_pipeline
+      run: docker run --rm --name targets_pipeline_container -v /github/workspace/fig/:/home/graphs:rw targets_pipeline
 
     # Step 4: Upload artifacts (optional, if your pipeline generates output)
     - name: Upload generated scripts or outputs
