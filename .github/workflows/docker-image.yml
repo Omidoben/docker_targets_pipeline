@@ -1,0 +1,35 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build-and-run:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository
+    - uses: actions/checkout@v3
+
+    # Step 2: Build the Docker image
+    - name: Build the Docker image
+      run: docker build -t targets_pipeline .
+
+    # Step 3: Run the Docker container with volume mapping
+    - name: Run the Docker container
+      run: docker run --rm --name targets_pipeline_container \
+        -v ${{ github.workspace }}/docker_targets_pipeline:/home/scripts:rw \
+        targets_pipeline
+
+    # Step 4: Upload artifacts (optional, if your pipeline generates output)
+    - name: Upload generated scripts or outputs
+      uses: actions/upload-artifact@v3
+      with:
+        name: pipeline-scripts
+        path: ${{ github.workspace }}/docker_targets_pipeline/
+
